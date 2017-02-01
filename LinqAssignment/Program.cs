@@ -8,10 +8,10 @@ namespace LinqAssignment
 {
     public class Product
     {
-       public int ID;
-       public string Name;
-       public int Price;
-       public int UnitsInStock;
+        public int ID;
+        public string Name;
+        public int Price;
+        public int UnitsInStock;
         public Product(int ID, string name, int price, int unitsinstock)
         {
             this.ID = ID;
@@ -19,24 +19,24 @@ namespace LinqAssignment
             this.Price = price;
             this.UnitsInStock = unitsinstock;
         }
-
     }
     class Customer
     {
-       public int ID;
-       public string name;  
+        public int ID;
+        public string name;
         public Customer(int ID, string name)
         {
             this.ID = ID;
             this.name = name;
         }
     }
+
     class Order
     {
-       public int ID;
-       public DateTime dateOrder;
-       public Product product;
-       public Customer customer;
+        public int ID;
+        public DateTime dateOrder;
+        public Product product;
+        public Customer customer;
         public Order(int ID, DateTime dateOrder, Product product, Customer customer)
         {
             this.ID = ID;
@@ -45,6 +45,7 @@ namespace LinqAssignment
             this.customer = customer;
         }
     }
+
     class Program
     {
         static void Main(string[] args)
@@ -79,7 +80,8 @@ namespace LinqAssignment
             var ProductinStock = from value in products
                                  where value.UnitsInStock > 0 && value.Price > 100
                                  select value.Name;
-            Console.WriteLine("Printing all product name in stock and Price greater than 100.: ");
+            Console.WriteLine("Printing all product name in stock and Price greater than 100: ");
+
             foreach (var product in ProductinStock)
             {
                 Console.WriteLine(product);
@@ -97,14 +99,11 @@ namespace LinqAssignment
             foreach (var i in Value)
                 Console.WriteLine(i);
 
-
-
             DateTime date = DateTime.Now;
 
             var buy = from order in orders
                       where DateTime.Compare(order.dateOrder, date.AddMonths(-1)) > 0
                       select order.customer.name;
-
 
             Console.WriteLine("Printing all customers who brought a product at least once in last month:");
             foreach (var bought in buy)
@@ -112,20 +111,18 @@ namespace LinqAssignment
                 Console.WriteLine(bought);
             }
 
-
             var productList = from order in orders
-                       group orders by order.product.ID into ProductGroup
-                       select new
-                       {
-                           value = ProductGroup.Count(),
-                           key = ProductGroup.Key
-                       };
+                              group orders by order.product.ID into ProductGroup
+                              select new
+                              {
+                                  value = ProductGroup.Count(),
+                                  key = ProductGroup.Key
+                              };
 
             Console.WriteLine("Printing Names of the product with number of times it was bought!");
             foreach (var t in productList)
                 Console.WriteLine(t);
-            
             Console.ReadLine();
-       }
+        }
     }
 }
